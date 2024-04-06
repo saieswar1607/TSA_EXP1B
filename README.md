@@ -1,5 +1,5 @@
 # Ex.No: 1B                     CONVERSION OF NON STATIONARY TO STATIONARY DATA
-### Date: 05/03/2024
+### Date: 
 
 ## AIM:
 To perform regular differncing,seasonal adjustment and log transformatio on international airline passenger data
@@ -70,7 +70,6 @@ SEASONAL ADJUSTMENT:
 
 
 LOG TRANSFORMATION:
-![3](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/eba61afc-2f25-4b96-b3f6-364a1f7e790c)
 ![4](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/94942c8c-405b-40a0-8a53-28a1cbb71193)
 
 
