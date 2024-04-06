@@ -60,16 +60,16 @@ plt.xlabel('Log- Transformed data')
 
 ## OUTPUT:
 
-REGULAR DIFFERENCING:
+### REGULAR DIFFERENCING:
 ![1](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/3af16d37-0cec-4715-af5e-c37e807ee819)
 
 
 
-SEASONAL ADJUSTMENT:
+### SEASONAL ADJUSTMENT:
 ![2](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/20a001e7-7129-429a-884f-3055b1d84c18)
 
 
-LOG TRANSFORMATION:
+### LOG TRANSFORMATION:
 ![4](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/94942c8c-405b-40a0-8a53-28a1cbb71193)
 
 
