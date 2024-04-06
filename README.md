@@ -10,72 +10,67 @@ To perform regular differncing,seasonal adjustment and log transformatio on inte
 4. Plot the data according to need, before and after regular differncing,seasonal adjustment,log transformation.
 5. Display the overall results.
 ## PROGRAM:
-### Regular Differencing
-```
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-data=pd.read_csv("/content/AirPassengers.csv",parse_dates=['Month'],index_col='Month')
-data.head()
-passengers['shifted_value']=passengers['#Passengers'].shift(1)
-passengers['difference_value']=passengers['#Passengers']-passengers['shifted_value']
-passengers.dropna(inplace=True)
-print(passengers)
-passengers.plot(kind='line')
-```
-
-### Seasonal Adjustment
-```
+<b>IMPORTING PACKAGES:</b>
+```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from statsmodels.tsa.seasonal import seasonal_decompose
-data=pd.read_csv("/content/AirPassengers.csv",parse_dates=['Month'],index_col='Month')
-passengers=pd.DataFrame(data)
-result=seasonal_decompose(passengers['#Passengers'],model='additive',period=1)
-seasonal=result.seasonal
-passengers['Seasonal_value']=passengers['#Passengers']-seasonal
-passengers.dropna(inplace=True)
-print(passengers)
-passengers.plot(kind='line')
+%matplotlib inline
+train = pd.read_csv('Electric_Production.csv')
+train['DATE'] = pd.to_datetime(train['DATE'], format='%d/%m/%Y')
+train.head()
 ```
-### Log Transformation
+<b>REGULAR DIFFERENCING:</b>
+```python
+from statsmodels.tsa.stattools import adfuller
+def adf_test(timeseries):
+    print ('Results of Dickey-Fuller Test:')
+    dftest = adfuller(timeseries, autolag='AIC')
+    dfoutput = pd.Series(dftest[0:4], index=['Test Statistic','p-value','#Lags Used'
+               ,'Number of Observations Used'])
+    for key,value in dftest[4].items():
+       dfoutput['Critical Value (%s)'%key] = value
+    print (dfoutput)
+adf_test(train['IPG2211A2N'])
+train['DATE'] = pd.to_datetime(train['DATE'], format='%d/%m/%Y')
+train['Year'] = train['DATE'].dt.year
 ```
-import numpy as np
-import pandas as pd
-data= pd.read_csv('AirPassengers.csv')
-data.head()
-data.dropna(inplace=True)
-x=data['Month']
-y=data['#Passengers']
-data_log=np.log(data['#Passengers'])
-X=data['Month']
-Y=data_log
-import matplotlib.pyplot as plt
-plt.plot(x,y)
-plt.xlabel('Original Data')
-plt.plot(X,Y)
-plt.xlabel('Log- Transformed data')
+<b>SEASONAL ADJUSTMENT:</b>
+```python
+data=train
+data['SeasonalAdjustment'] = data.iloc[:,1] - data.iloc[:,1].shift(12)
+data['SeasonalAdjustment'].dropna()
+x=data['Year']
+y=data["SeasonalAdjustment"]
+plt.plot(x,y,color='black')
+plt.title("ElectroGraph")
+plt.xlabel("<-----Year---->",color='blue')
+plt.ylabel("<-----Usage---->",color='red')
+plt.show()
 ```
-
+<b>LOG TRANSFORMATION:</b>
+```python
+data1=train
+data1['log']=np.log(data1['IPG2211A2N_diff']).dropna()
+data1=data1.dropna()
+x=data1['Year']
+y=data1['log']
+plt.xlabel('Year',color='blue')
+plt.ylabel('Log Values',color='red')
+```
 ## OUTPUT:
 
-### REGULAR DIFFERENCING:
-![1](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/3af16d37-0cec-4715-af5e-c37e807ee819)
+<b>REGULAR DIFFERENCING:</b>
 
+![1](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/85f801fd-61cf-456d-bdfc-6fff4271816d)
 
+<b>SEASONAL ADJUSTMENT:</b>
 
-### SEASONAL ADJUSTMENT:
-![2](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/20a001e7-7129-429a-884f-3055b1d84c18)
+![2](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/24859450-60f6-45af-ac94-087fe6654165)
 
+<b>LOG TRANSFORMATION:</b>
 
-### LOG TRANSFORMATION:
-![4](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/94942c8c-405b-40a0-8a53-28a1cbb71193)
-
-
-
-
+![3](https://github.com/saieswar1607/TSA_EXP1B/assets/93427011/2a0aac5e-01a6-4482-b916-5dea459c6b48)
 
 ## RESULT:
-Thus we have created the python code for the conversion of non stationary to stationary data on international airline passenger
-data.
+Thus we have created the python code for the conversion of non stationary to stationary data on international airline passenger data.
